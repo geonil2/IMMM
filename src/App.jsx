@@ -41,6 +41,10 @@ function App() {
     KlipAPI.getAddress(setQrvalue);
   }
 
+  const onClickSetCount = () => {
+    KlipAPI.setCount(2000, setQrvalue);
+  }
+
   return (
     <div className="App">
       <div>
@@ -54,15 +58,16 @@ function App() {
         <div>{userObj.name}</div>
 
         <GoogleLogout
-            clientId = {googleClientId}
-            buttonText="logout!!"
-            onLogoutSuccess={onLogout}
-            />
+          clientId = {googleClientId}
+          buttonText="logout!!"
+          onLogoutSuccess={onLogout}
+        />
       </div>
       
       <QRCode value={qrvalue} />
       
       <button onClick={getClickGetAddress}>get address</button>
+      <button onClick={onClickSetCount}>set Count</button>
       <button onClick={() => {setCount(100)}}>connect</button>
     </div>
   );
