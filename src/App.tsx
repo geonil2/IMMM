@@ -14,14 +14,14 @@ function App() {
   // getBalance('0x7601fbeda5d5e30146e73a3508c15590b782eadc');
 
   //클라이언트 ID (환경변수)
-  let googleClientId=process.env.REACT_APP_CLIENT_ID||"";
+  let googleClientId=process.env.REACT_APP_CLIENT_ID || "";
   //사용자 정보를 담아둘 userObj
   const [userObj, setUserObj] = useState({
     email:"",
     name:""
   })
   //로그인 성공시 res처리
-  const onLoginSuccess=(res) => {
+  const onLoginSuccess=(res: any) => {
     console.log(res);
     setUserObj({...userObj,
       email:res.profileObj.email,
@@ -50,7 +50,7 @@ function App() {
       <div>
         <GoogleLogin
           clientId = {googleClientId}
-          buttonText="Google"
+          buttonText="Login"
           onSuccess={result=>onLoginSuccess(result)}
           onFailure={result => console.log(result)}
         />

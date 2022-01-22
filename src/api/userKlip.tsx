@@ -3,7 +3,7 @@ import { COUNT_CONTRACT_ADDRESS } from "../constants";
 
 const apiPrepareURL = "https://a2a-api.klipwallet.com/v2/a2a/prepare";
 const appName = 'KLAY_MARKET';
-export const setCount = (count, setQrvalue) => {
+export const setCount = (count: number, setQrvalue: React.Dispatch<React.SetStateAction<string>>) => {
     axios.post(
         apiPrepareURL, {
             bapp: {
@@ -34,7 +34,7 @@ export const setCount = (count, setQrvalue) => {
 }
 
 
-export const getAddress = (setQrvalue) => {
+export const getAddress = (setQrvalue: React.Dispatch<React.SetStateAction<string>>) => {
     axios.post(
         apiPrepareURL, {
             bapp: {
