@@ -34,7 +34,7 @@ export const setCount = (count: number, setQrvalue: React.Dispatch<React.SetStat
 }
 
 
-export const getAddress = (setQrvalue: React.Dispatch<React.SetStateAction<string>>) => {
+export const getAddress = (setQrvalue: React.Dispatch<React.SetStateAction<string>>, callback: any) => {
     axios.post(
         apiPrepareURL, {
             bapp: {
@@ -51,6 +51,7 @@ export const getAddress = (setQrvalue: React.Dispatch<React.SetStateAction<strin
             .then((res) => {
                 if(res.data.result) {
                     console.log(`[Result] ${JSON.stringify(res.data.result)}`);
+                    callback(res.data.result.klaytn_address);
                     clearInterval(timerId);
                 }
             })

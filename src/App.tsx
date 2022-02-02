@@ -5,11 +5,15 @@ import {readCount, getBalance, setCount} from './api/userCaver';
 import QRCode from 'qrcode.react';
 import * as KlipAPI from './api/userKlip';
 
-
 const DEFAULT_QR_CODE = 'DEFAULT'
+const DEFAULT_ADDRESS = "0x0000000000000000000000000000000000000000000000000000000000000000"
 
 function App() {
   const [qrvalue, setQrvalue] = useState(DEFAULT_QR_CODE);
+  const [nfts, setNfts] = useState([]);
+  const [myBalance, setMyBalance] = useState("0");
+  const [myAddress, setMyAddress] = useState(DEFAULT_ADDRESS);
+
   // readCount();
   // getBalance('0x7601fbeda5d5e30146e73a3508c15590b782eadc');
 
@@ -37,8 +41,16 @@ function App() {
     }) 
   }
 
+  const getUserData = () => {
+    KlipAPI.getAddress(setQrvalue, async (address: any) => {
+      setMyAddress(address);
+      const _balance = await getBalance(address);
+      setMyBalance(_balance);
+    });
+  }
+
   const getClickGetAddress = () => {
-    KlipAPI.getAddress(setQrvalue);
+    // KlipAPI.getAddress(setQrvalue);
   }
 
   const onClickSetCount = () => {
@@ -65,10 +77,15 @@ function App() {
       </div>
       
       <QRCode value={qrvalue} />
+
+      <div onClick={getUserData}>
+        잔고 : {myBalance}
+        주소 : {myAddress}
+      </div>
       
-      <button onClick={getClickGetAddress}>get address</button>
+      {/* <button onClick={getClickGetAddress}>get address</button>
       <button onClick={onClickSetCount}>set Count</button>
-      <button onClick={() => {setCount(100)}}>connect</button>
+      <button onClick={() => {setCount(100)}}>connect</button> */}
     </div>
   );
 }
