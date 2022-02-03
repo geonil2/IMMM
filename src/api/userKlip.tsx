@@ -1,8 +1,18 @@
 import axios from "axios";
-import { COUNT_CONTRACT_ADDRESS, NFT_CONTRACT_ADDRESS } from "../constants";
+import { COUNT_CONTRACT_ADDRESS, MARKET_CONTRACT_ADDRESS, NFT_CONTRACT_ADDRESS } from "../constants";
 
 const apiPrepareURL = "https://a2a-api.klipwallet.com/v2/a2a/prepare";
 const appName = 'KLAY_MARKET';
+
+export const buyCard = async (tokenId: string, setQrvalue: React.Dispatch<React.SetStateAction<string>>, callback: any) => {
+    const functionJson: string = '{ "constant": false, "inputs": [ { "name": "tokenId", "type": "uint256" }, { "name": "NFTAddress", "type": "address" }, { "name": "to", "type": "address" } ], "name": "buyNFT", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "stateMutability": "nonpayable", "type": "function" }';
+    executeContract(MARKET_CONTRACT_ADDRESS, functionJson, "10000000000000000", `[\"${tokenId}\", \"${NFT_CONTRACT_ADDRESS}\"]`, setQrvalue, callback);
+}
+
+export const listingCard = async (fromAddress: string, tokenId: string, setQrvalue: React.Dispatch<React.SetStateAction<string>>, callback: any) => {
+    const functionJson: string = '{ "constant": false, "inputs": [ { "name": "from", "type": "address" }, { "name": "to", "type": "address" }, { "name": "tokenId", "type": "uint256" } ], "name": "safeTransferFrom", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }';
+    executeContract(NFT_CONTRACT_ADDRESS, functionJson, "0", `[\"${fromAddress}\", \"${MARKET_CONTRACT_ADDRESS}\",\"${tokenId}\"]`, setQrvalue, callback);
+}
 
 export const mintCardWithURI = async (
     toAddress: string, 

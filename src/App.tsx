@@ -56,6 +56,8 @@ function App() {
     })
   }
 
+
+
   const getUserData = () => {
     KlipAPI.getAddress(setQrvalue, async (address: string) => {
       setMyAddress(address);
