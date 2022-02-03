@@ -1,25 +1,27 @@
 import React, { useState } from 'react';
 import './App.css';
 import {GoogleLogin, GoogleLogout} from 'react-google-login';
-import {readCount, getBalance, setCount, fetchCardsOf} from './api/userCaver';
+import {getBalance, fetchCardsOf} from './api/userCaver';
 import QRCode from 'qrcode.react';
 import * as KlipAPI from './api/userKlip';
 import { MARKET_CONTRACT_ADDRESS } from './constants';
+import { nfts } from './type/type';
 
 const DEFAULT_QR_CODE = 'DEFAULT'
 const DEFAULT_ADDRESS = "0x0000000000000000000000000000000000000000000000000000000000000000"
 
 function App() {
   const [qrvalue, setQrvalue] = useState(DEFAULT_QR_CODE);
-  const [nfts, setNfts] = useState([]);
+  const [nfts, setNfts] = useState<nfts[]>([]);
   const [myBalance, setMyBalance] = useState("0");
   const [myAddress, setMyAddress] = useState(DEFAULT_ADDRESS);
+  const [mintImgUrl, setMintImgUrl] = useState("");
 
   // readCount();
   // getBalance('0x7601fbeda5d5e30146e73a3508c15590b782eadc');
 
   //클라이언트 ID (환경변수)
-  let googleClientId=process.env.REACT_APP_CLIENT_ID || "";
+  let googleClientId = process.env.REACT_APP_CLIENT_ID || "";
   //사용자 정보를 담아둘 userObj
   const [userObj, setUserObj] = useState({
     email:"",
@@ -29,9 +31,9 @@ function App() {
   const onLoginSuccess=(res: any) => {
     console.log(res);
     setUserObj({...userObj,
-      email:res.profileObj.email,
-      name:res.profileObj.name
-    }) 
+      email: res.profileObj.email,
+      name: res.profileObj.name
+    })
   }
 
   const onLogout = () => {
@@ -42,8 +44,20 @@ function App() {
     }) 
   }
 
+
+
+  const onClickMint = async (uri: string) => {
+    if(myAddress === DEFAULT_ADDRESS) {
+      alert("No address");
+    }
+    const randomTokenId = Math.random() * 100;
+    KlipAPI.mintCardWithURI(myAddress, randomTokenId, uri, setQrvalue, (result: any) => {
+      alert(JSON.stringify(result));
+    })
+  }
+
   const getUserData = () => {
-    KlipAPI.getAddress(setQrvalue, async (address: any) => {
+    KlipAPI.getAddress(setQrvalue, async (address: string) => {
       setMyAddress(address);
       const _balance = await getBalance(address);
       setMyBalance(_balance);
@@ -51,12 +65,12 @@ function App() {
   }
 
   const fetchMarketNFTs = async () => {
-    const _nfts: any = await fetchCardsOf(MARKET_CONTRACT_ADDRESS);
+    const _nfts: nfts[] = await fetchCardsOf(MARKET_CONTRACT_ADDRESS);
     setNfts(_nfts);
   }
 
   const fetchMyNFTs = async () => {
-    const _nfts: any = await fetchCardsOf(myAddress);
+    const _nfts: nfts[] = await fetchCardsOf(myAddress);
     setNfts(_nfts);
   }
 
@@ -65,7 +79,7 @@ function App() {
   }
 
   const onClickSetCount = () => {
-    KlipAPI.setCount(2000, setQrvalue);
+    // KlipAPI.setCount(2000, setQrvalue);
   }
 
   return (
@@ -87,10 +101,25 @@ function App() {
         />
       </div>
 
+      <button onClick={fetchMyNFTs}>내 NFT 가져오기</button>
+      <button onClick={fetchMarketNFTs}>마켓 NFT 가져오기</button>
+      
+      <form>
+        <input 
+          type="text"
+          placeholder='이미지 주소를 입력해주세요.'
+          value={mintImgUrl}
+          onChange={(e) => {
+            setMintImgUrl(e.target.value);
+          }}
+        />
+        <button onClick={() => onClickMint(mintImgUrl)}>발행하기</button>
+      </form>
+  
       <div>
-        {nfts.map((nft, index) => {
-          <img src={nfts[index].uri} />
-        })}
+        {nfts.map((nft) => (
+          <img src={nft.uri} />
+        ))}
       </div>
       
       <QRCode value={qrvalue} size={256} />

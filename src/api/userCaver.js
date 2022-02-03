@@ -26,13 +26,14 @@ export const fetchCardsOf = async (address) => {
         const id = await NFTContract.methods.tokenOfOwnerByIndex(address, i).call();
         tokenIds.push(id);
     }
+
     //Fetch Token URIs
     const tokenUris = [];
     for(let i = 0; i < balance; i++) {
-        const uri = await NFTContract.methods.tokenURI(tokenIds[i], i).call();
+        const uri = await NFTContract.methods.tokenURI(tokenIds[i]).call();
         tokenUris.push(uri);
     }
-
+    
     const nfts = [];
     for(let i = 0; i < balance; i++) {
         nfts.push({ uri: tokenUris[i], id: tokenIds[i] });
