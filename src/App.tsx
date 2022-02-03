@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import './App.css';
 import {GoogleLogin, GoogleLogout} from 'react-google-login';
-import {readCount, getBalance, setCount} from './api/userCaver';
+import {readCount, getBalance, setCount, fetchCardsOf} from './api/userCaver';
 import QRCode from 'qrcode.react';
 import * as KlipAPI from './api/userKlip';
+import { MARKET_CONTRACT_ADDRESS } from './constants';
 
 const DEFAULT_QR_CODE = 'DEFAULT'
 const DEFAULT_ADDRESS = "0x0000000000000000000000000000000000000000000000000000000000000000"
@@ -49,6 +50,16 @@ function App() {
     });
   }
 
+  const fetchMarketNFTs = async () => {
+    const _nfts: any = await fetchCardsOf(MARKET_CONTRACT_ADDRESS);
+    setNfts(_nfts);
+  }
+
+  const fetchMyNFTs = async () => {
+    const _nfts: any = await fetchCardsOf(myAddress);
+    setNfts(_nfts);
+  }
+
   const getClickGetAddress = () => {
     // KlipAPI.getAddress(setQrvalue);
   }
@@ -75,8 +86,14 @@ function App() {
           onLogoutSuccess={onLogout}
         />
       </div>
+
+      <div>
+        {nfts.map((nft, index) => {
+          <img src={nfts[index].uri} />
+        })}
+      </div>
       
-      <QRCode value={qrvalue} />
+      <QRCode value={qrvalue} size={256} />
 
       <div onClick={getUserData}>
         잔고 : {myBalance}
