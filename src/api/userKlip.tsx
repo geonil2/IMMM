@@ -51,7 +51,9 @@ export const getAddress = (setQrvalue: React.Dispatch<React.SetStateAction<strin
             .then((res) => {
                 if(res.data.result) {
                     console.log(`[Result] ${JSON.stringify(res.data.result)}`);
-                    clearInterval(timerId);
+                    if(res.data.result.status === 'success') {
+                        clearInterval(timerId);
+                    }
                 }
             })
         }, 1000)
