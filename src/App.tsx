@@ -16,7 +16,8 @@ function App() {
   const [myBalance, setMyBalance] = useState("0");
   const [myAddress, setMyAddress] = useState(DEFAULT_ADDRESS);
   const [mintImgUrl, setMintImgUrl] = useState("");
-
+  const [nowNftstate, setNowNftstate] = useState("");
+  // market contract 재발행 seller 있는걸로
   // readCount();
   // getBalance('0x7601fbeda5d5e30146e73a3508c15590b782eadc');
 
@@ -56,7 +57,26 @@ function App() {
     })
   }
 
+  const onClickCard = (id: string) => {
+    if(nowNftstate === "my") {
+      onClickMyCard(id);
+    }
+    if(nowNftstate === "market") {
+      onClickMarketCard(id);
+    }
+  }
 
+  const onClickMyCard = (tokenId: string) => {
+    KlipAPI.listingCard(myAddress, tokenId, setQrvalue, (result: any) => {
+      alert(JSON.stringify(result));
+    });
+  }
+
+  const onClickMarketCard = (tokenId: string) => {
+    KlipAPI.buyCard(tokenId, setQrvalue, (result: any) => {
+      alert(JSON.stringify(result));
+    });
+  }
 
   const getUserData = () => {
     KlipAPI.getAddress(setQrvalue, async (address: string) => {
@@ -67,11 +87,13 @@ function App() {
   }
 
   const fetchMarketNFTs = async () => {
+    setNowNftstate("market");
     const _nfts: nfts[] = await fetchCardsOf(MARKET_CONTRACT_ADDRESS);
     setNfts(_nfts);
   }
 
   const fetchMyNFTs = async () => {
+    setNowNftstate("my");
     const _nfts: nfts[] = await fetchCardsOf(myAddress);
     setNfts(_nfts);
   }
@@ -120,7 +142,7 @@ function App() {
   
       <div>
         {nfts.map((nft) => (
-          <img src={nft.uri} />
+          <img src={nft.uri} key={nft.id} onClick={() => {onClickCard(nft.id)}} />
         ))}
       </div>
       

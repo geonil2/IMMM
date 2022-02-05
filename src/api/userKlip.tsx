@@ -43,7 +43,7 @@ export const executeContract = (
                 to : txTo,
                 abi : functionJSON,
                 value : value,
-                parans : params
+                params : params
             }
         }
     ).then((res) => {
