@@ -17,6 +17,12 @@ function App() {
   const [myAddress, setMyAddress] = useState(DEFAULT_ADDRESS);
   const [mintImgUrl, setMintImgUrl] = useState("");
   const [nowNftstate, setNowNftstate] = useState("");
+
+  const [showModal, setShowModal] = useState(false);
+  const [modalProps, setModalProps] = useState({
+    title: "MODAL",
+    onConfirm: () => {}
+  });
   // market contract 재발행 seller 있는걸로
   // readCount();
   // getBalance('0x7601fbeda5d5e30146e73a3508c15590b782eadc');
@@ -60,10 +66,22 @@ function App() {
 
   const onClickCard = (id: string) => {
     if(nowNftstate === "my") {
-      onClickMyCard(id);
+      setModalProps({
+        title: "NFT를 마켓에 올리겠습니까?",
+        onConfirm: () => {
+          onClickMyCard(id);
+        }
+      });
+      setShowModal(true);
     }
     if(nowNftstate === "market") {
-      onClickMarketCard(id);
+      setModalProps({
+        title: "NFT를 구매 하시겠습니까?",
+        onConfirm: () => {
+          onClickMarketCard(id);
+        }
+      });
+      setShowModal(true);
     }
   }
 
@@ -80,11 +98,17 @@ function App() {
   }
 
   const getUserData = () => {
-    KlipAPI.getAddress(setQrvalue, async (address: string) => {
-      setMyAddress(address);
-      const _balance = await getBalance(address);
-      setMyBalance(_balance);
+    setModalProps({
+      title: "Klip 지갑을 연결하시겠습니까?",
+      onConfirm: () => {
+        KlipAPI.getAddress(setQrvalue, async (address: string) => {
+          setMyAddress(address);
+          const _balance = await getBalance(address);
+          setMyBalance(_balance);
+        });
+      }
     });
+    setShowModal(true);
   }
 
   const fetchMarketNFTs = async () => {
@@ -164,6 +188,22 @@ function App() {
         잔고 : {myBalance}
         주소 : {myAddress}
       </div>
+      
+      {showModal ? (
+        <div className="modal">
+          <div className="modal_header">
+            <div className="modal_tit">{modalProps.title}</div>
+          </div>
+          <div className="modal_footer">
+            <button className="modal_close" onClick={() => setShowModal(false)}>닫기</button>
+            <button onClick={() => {
+              modalProps.onConfirm();
+              setShowModal(false)
+            }}>진행</button>
+          </div>
+        </div>
+      ) : null}
+      
       
       {/* <button onClick={getClickGetAddress}>get address</button>
       <button onClick={onClickSetCount}>set Count</button>
