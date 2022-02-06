@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import {GoogleLogin, GoogleLogout} from 'react-google-login';
 import {getBalance, fetchCardsOf} from './api/userCaver';
@@ -50,6 +50,7 @@ function App() {
   const onClickMint = async (uri: string) => {
     if(myAddress === DEFAULT_ADDRESS) {
       alert("No address");
+      return;
     }
     const randomTokenId = Math.random() * 100;
     KlipAPI.mintCardWithURI(myAddress, randomTokenId, uri, setQrvalue, (result: any) => {
@@ -93,6 +94,10 @@ function App() {
   }
 
   const fetchMyNFTs = async () => {
+    if(myAddress === DEFAULT_ADDRESS) {
+      alert("No address");
+      return;
+    }
     setNowNftstate("my");
     const _nfts: nfts[] = await fetchCardsOf(myAddress);
     setNfts(_nfts);
@@ -105,6 +110,11 @@ function App() {
   const onClickSetCount = () => {
     // KlipAPI.setCount(2000, setQrvalue);
   }
+
+  useEffect(() => {
+    getUserData();
+    fetchMarketNFTs();
+  }, [])
 
   return (
     <div className="App">
@@ -146,7 +156,9 @@ function App() {
         ))}
       </div>
       
-      <QRCode value={qrvalue} size={256} />
+      {qrvalue !== 'DEFAULT' ? (
+        <QRCode value={qrvalue} size={256} />
+      ) : null}
 
       <div onClick={getUserData}>
         잔고 : {myBalance}

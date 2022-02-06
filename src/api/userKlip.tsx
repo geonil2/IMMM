@@ -3,16 +3,23 @@ import { COUNT_CONTRACT_ADDRESS, MARKET_CONTRACT_ADDRESS, NFT_CONTRACT_ADDRESS }
 
 const apiPrepareURL = "https://a2a-api.klipwallet.com/v2/a2a/prepare";
 const appName = 'KLAY_MARKET';
+const isMobile = window.screen.width >= 1280 ? false : true;
 
+const getKlipAccessUrl = (methods: string, request_key: string) => {
+    if(methods === 'QR') {
+        return `https://klipwallet.com/?target=/a2a?request_key=${request_key}`;
+    }
+    return `kakaotalk://klipwallet/open?url=https://klipwallet.com/?target=/a2a?request_key=${request_key}`
+};
 export const buyCard = async (tokenId: string, setQrvalue: React.Dispatch<React.SetStateAction<string>>, callback: any) => {
     const functionJson: string = '{ "constant": false, "inputs": [ { "name": "tokenId", "type": "uint256" }, { "name": "NFTAddress", "type": "address" }, { "name": "to", "type": "address" } ], "name": "buyNFT", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "stateMutability": "nonpayable", "type": "function" }';
     executeContract(MARKET_CONTRACT_ADDRESS, functionJson, "10000000000000000", `[\"${tokenId}\", \"${NFT_CONTRACT_ADDRESS}\"]`, setQrvalue, callback);
-}
+};
 
 export const listingCard = async (fromAddress: string, tokenId: string, setQrvalue: React.Dispatch<React.SetStateAction<string>>, callback: any) => {
     const functionJson: string = '{ "constant": false, "inputs": [ { "name": "from", "type": "address" }, { "name": "to", "type": "address" }, { "name": "tokenId", "type": "uint256" } ], "name": "safeTransferFrom", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }';
     executeContract(NFT_CONTRACT_ADDRESS, functionJson, "0", `[\"${fromAddress}\", \"${MARKET_CONTRACT_ADDRESS}\",\"${tokenId}\"]`, setQrvalue, callback);
-}
+};
 
 export const mintCardWithURI = async (
     toAddress: string, 
@@ -48,15 +55,19 @@ export const executeContract = (
         }
     ).then((res) => {
         const { request_key } = res.data;
-        const qrcode = `https://klipwallet.com/?target=/a2a?request_key=${request_key}`;
-        setQrvalue(qrcode);
+        if(isMobile) {
+            window.location.href = getKlipAccessUrl("Android", request_key);
+        } else {
+            setQrvalue(getKlipAccessUrl("QR", request_key));
+        }
         let timerId = setInterval(() => {
             axios.get(`https://a2a-api.klipwallet.com/v2/a2a/result?request_key=${request_key}`)
             .then((res) => {
                 if(res.data.result) {
                     console.log(`[Result] ${JSON.stringify(res.data.result)}`);
-                    callback(res.data.result)
+                    callback(res.data.result);
                     clearInterval(timerId);
+                    setQrvalue("DEFAULT");
                 }
             })
         }, 1000)
@@ -73,8 +84,11 @@ export const getAddress = (setQrvalue: React.Dispatch<React.SetStateAction<strin
         }
     ).then((res) => {
         const { request_key } = res.data;
-        const qrcode = `https://klipwallet.com/?target=/a2a?request_key=${request_key}`;
-        setQrvalue(qrcode);
+        if(isMobile) {
+            window.location.href = getKlipAccessUrl("Android", request_key);
+        } else {
+            setQrvalue(getKlipAccessUrl("QR", request_key));
+        }
         let timerId = setInterval(() => {
             axios.get(`https://a2a-api.klipwallet.com/v2/a2a/result?request_key=${request_key}`)
             .then((res) => {
@@ -82,6 +96,7 @@ export const getAddress = (setQrvalue: React.Dispatch<React.SetStateAction<strin
                     console.log(`[Result] ${JSON.stringify(res.data.result)}`);
                     callback(res.data.result.klaytn_address);
                     clearInterval(timerId);
+                    setQrvalue("DEFAULT");
                 }
             })
         }, 1000)
