@@ -14,7 +14,7 @@ function App() {
   const [qrvalue, setQrvalue] = useState(DEFAULT_QR_CODE);
   const [nfts, setNfts] = useState<nfts[]>([]);
   const [myBalance, setMyBalance] = useState("0");
-  const [myAddress, setMyAddress] = useState(DEFAULT_ADDRESS);
+  const [myAddress, setMyAddress] = useState("0x5869f2ca75337b55F1Bf9C99EE5a092A9f138F96");
   const [mintImgUrl, setMintImgUrl] = useState("");
   const [nowNftstate, setNowNftstate] = useState("");
 
@@ -26,6 +26,7 @@ function App() {
   // market contract 재발행 seller 있는걸로
   // readCount();
   // getBalance('0x7601fbeda5d5e30146e73a3508c15590b782eadc');
+//0x5869f2ca75337b55F1Bf9C99EE5a092A9f138F96
 
   //클라이언트 ID (환경변수)
   let googleClientId = process.env.REACT_APP_CLIENT_ID || "";

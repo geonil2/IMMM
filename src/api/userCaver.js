@@ -5,12 +5,12 @@ import {COUNT_CONTRACT_ADDRESS, AUTHORIZATION, NFT_CONTRACT_ADDRESS, CHAIN_ID} f
 
 const option = {
     headers: [
-    {
-    name: "Authorization",
-    value: AUTHORIZATION
-    },
-    {name: "x-chain-id", value : CHAIN_ID}
-]
+        {
+        name: "Authorization",
+        value: AUTHORIZATION
+        },
+        {name: "x-chain-id", value : CHAIN_ID}
+    ]
 }
 
 const caver = new Caver(new Caver.providers.HttpProvider("https://node-api.klaytnapi.com/v1/klaytn", option)); //누구한테 실행할지
