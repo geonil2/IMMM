@@ -37,4 +37,4 @@
   }
 }
 
-.modal{ position: absolute; top: 50%; left: 50%; width: 300px; height: 300px; display: flex; flex-direction: column; justify-content: center; align-items: center; transform: translate(-50%, -50%); border: 1px solid #ddd;}
+.modal{ position: absolute; top: 50%; left: 50%; width: 300px; height: 300px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: white; transform: translate(-50%, -50%); border: 1px solid #ddd;}
