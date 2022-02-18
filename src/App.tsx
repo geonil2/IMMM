@@ -14,7 +14,7 @@ function App() {
   const [qrvalue, setQrvalue] = useState(DEFAULT_QR_CODE);
   const [nfts, setNfts] = useState<nfts[]>([]);
   const [myBalance, setMyBalance] = useState("0");
-  const [myAddress, setMyAddress] = useState("0x5869f2ca75337b55F1Bf9C99EE5a092A9f138F96");
+  const [myAddress, setMyAddress] = useState(DEFAULT_ADDRESS);
   const [mintImgUrl, setMintImgUrl] = useState("");
   const [nowNftstate, setNowNftstate] = useState("");
 
