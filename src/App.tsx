@@ -6,6 +6,14 @@ import QRCode from 'qrcode.react';
 import * as KlipAPI from './api/userKlip';
 import { MARKET_CONTRACT_ADDRESS } from './constants';
 import { nfts } from './type/type';
+import { Routes, Route } from 'react-router-dom';
+
+import Header from './layout/header';
+import Home from './layout/home';
+import Market from './layout/market';
+import Detail from './layout/detail';
+import Create from './layout/create';
+import MyNft from './layout/mynft';
 
 const DEFAULT_QR_CODE = 'DEFAULT'
 const DEFAULT_ADDRESS = "0x0000000000000000000000000000000000000000000000000000000000000000"
@@ -204,10 +212,15 @@ function App() {
         </div>
       ) : null}
       
-      
-      {/* <button onClick={getClickGetAddress}>get address</button>
-      <button onClick={onClickSetCount}>set Count</button>
-      <button onClick={() => {setCount(100)}}>connect</button> */}
+      <Header />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/market" element={<Market />} />
+        <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/create" element={<Create />} />
+        <Route path="/mynft/:address" element={<MyNft />} />
+      </Routes>
     </div>
   );
 }
