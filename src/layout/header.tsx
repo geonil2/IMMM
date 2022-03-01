@@ -3,17 +3,17 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
     return (
-        <div>
+        <header>
             <ul>
                 <li>
-                    <Link to="/">home</Link>
+                    <Link to="/">Home</Link>
                 </li>
-                <li><Link to="market">market</Link></li>
-                <li><Link to="detail:/id">detail</Link></li>
-                <li><Link to="create">create</Link></li>
-                <li><Link to="mynft/:address">my nft</Link></li>
+                <li><Link to="market">Market</Link></li>
+                <li><Link to="detail/:id">Detail</Link></li>
+                <li><Link to="create">Create</Link></li>
+                <li><Link to="mynft/:address">My nft</Link></li>
             </ul>
-        </div>
+        </header>
     );
 };
 

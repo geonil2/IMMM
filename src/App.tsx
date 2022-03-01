@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
 import {GoogleLogin, GoogleLogout} from 'react-google-login';
 import {getBalance, fetchCardsOf} from './api/userCaver';
 import QRCode from 'qrcode.react';
@@ -8,12 +7,15 @@ import { MARKET_CONTRACT_ADDRESS } from './constants';
 import { nfts } from './type/type';
 import { Routes, Route } from 'react-router-dom';
 
+import './assets/scss/index.scss';
+
 import Header from './layout/header';
 import Home from './layout/home';
 import Market from './layout/market';
 import Detail from './layout/detail';
 import Create from './layout/create';
 import MyNft from './layout/mynft';
+import Footer from './layout/footer';
 
 const DEFAULT_QR_CODE = 'DEFAULT'
 const DEFAULT_ADDRESS = "0x0000000000000000000000000000000000000000000000000000000000000000"
@@ -150,7 +152,7 @@ function App() {
 
   return (
     <div className="App">
-      <div>
+      {/* <div>
         <GoogleLogin
           clientId = {googleClientId}
           buttonText="Login"
@@ -210,7 +212,7 @@ function App() {
             }}>진행</button>
           </div>
         </div>
-      ) : null}
+      ) : null} */}
       
       <Header />
 
@@ -221,6 +223,8 @@ function App() {
         <Route path="/create" element={<Create />} />
         <Route path="/mynft/:address" element={<MyNft />} />
       </Routes>
+
+      <Footer />
     </div>
   );
 }

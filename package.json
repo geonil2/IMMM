@@ -13,6 +13,7 @@
     "axios": "^0.25.0",
     "caver-js": "^1.6.6",
     "node-polyfill-webpack-plugin": "^1.1.4",
+    "node-sass": "^7.0.1",
     "qrcode.react": "^1.0.1",
     "react": "^17.0.2",
     "react-app-rewired": "^2.1.11",
