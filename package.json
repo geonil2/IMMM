@@ -28,7 +28,9 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-app-rewired eject"
+    "eject": "react-app-rewired eject",
+    "deploy": "aws s3 sync ./build s3://s3-geonil-test --profile=geonil",
+    "invalidate": "aws cloudfront create-invalidation --profil=geonil --distribution-id E3S9QUESCIT6SG --paths /*"
   },
   "eslintConfig": {
     "extends": [
