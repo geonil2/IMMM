@@ -41,12 +41,11 @@ function App() {
   let googleClientId = process.env.REACT_APP_CLIENT_ID || "";
   //사용자 정보를 담아둘 userObj
   const [userObj, setUserObj] = useState({
-    email:"",
+  email:"",
     name:""
   })
   //로그인 성공시 res처리
   const onLoginSuccess=(res: any) => {
-    console.log(res);
     setUserObj({...userObj,
       email: res.profileObj.email,
       name: res.profileObj.name
@@ -54,7 +53,6 @@ function App() {
   }
 
   const onLogout = () => {
-    console.log('logout');
     setUserObj({...userObj,
       email:'',
       name:''
@@ -140,7 +138,7 @@ function App() {
   const getClickGetAddress = () => {
     // KlipAPI.getAddress(setQrvalue);
   }
-
+  
   const onClickSetCount = () => {
     // KlipAPI.setCount(2000, setQrvalue);
   }

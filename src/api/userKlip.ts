@@ -64,7 +64,7 @@ export const executeContract = (
             axios.get(`https://a2a-api.klipwallet.com/v2/a2a/result?request_key=${request_key}`)
             .then((res) => {
                 if(res.data.result) {
-                    console.log(`[Result] ${JSON.stringify(res.data.result)}`);
+                    // console.log(`[Result] ${JSON.stringify(res.data.result)}`);
                     callback(res.data.result);
                     clearInterval(timerId);
                     setQrvalue("DEFAULT");
@@ -93,7 +93,7 @@ export const getAddress = (setQrvalue: React.Dispatch<React.SetStateAction<strin
             axios.get(`https://a2a-api.klipwallet.com/v2/a2a/result?request_key=${request_key}`)
             .then((res) => {
                 if(res.data.result) {
-                    console.log(`[Result] ${JSON.stringify(res.data.result)}`);
+                    // console.log(`[Result] ${JSON.stringify(res.data.result)}`);
                     callback(res.data.result.klaytn_address);
                     clearInterval(timerId);
                     setQrvalue("DEFAULT");

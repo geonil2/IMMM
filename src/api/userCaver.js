@@ -46,7 +46,7 @@ export const fetchCardsOf = async (address) => {
 export const getBalance = (address) => {
     return caver.rpc.klay.getBalance(address).then((response) => {
         const balance = caver.utils.convertFromPeb(caver.utils.hexToNumberString(response), '');
-        console.log(`balance, ${balance}`);
+        // console.log(`balance, ${balance}`);
         return balance;
     })
 }
