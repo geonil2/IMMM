@@ -1,4 +1,16 @@
-header{ @include flex; justify-content: space-between; border-bottom: 1px solid #ddd;
-    .header-logo{ width: 167px; height: 77px; }
+header{ 
+    @include flex;
+    height: 100px;
+    justify-content: space-between; 
+    border-bottom: 1px solid #ddd;
+    padding: 0px 30px;
     
+    .header-right{
+        @include flex;
+        justify-content: space-between;
+    }
+
+    .header-logo logo-img{ 
+        width: 128px; 
+    }    
 }

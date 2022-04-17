@@ -1,2 +1,5 @@
-.navigation{ width: 500px; height : 30px; @include flex; justify-content: space-around;
+.navigation{ 
+    width: 424px; 
+    @include flex; 
+    justify-content: space-between;
 }

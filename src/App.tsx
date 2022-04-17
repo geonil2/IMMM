@@ -37,29 +37,6 @@ function App() {
   // getBalance('0x7601fbeda5d5e30146e73a3508c15590b782eadc');
   //0x5869f2ca75337b55F1Bf9C99EE5a092A9f138F96
 
-  //클라이언트 ID (환경변수)
-  let googleClientId = process.env.REACT_APP_CLIENT_ID || "";
-  //사용자 정보를 담아둘 userObj
-  const [userObj, setUserObj] = useState({
-  email:"",
-    name:""
-  })
-  //로그인 성공시 res처리
-  const onLoginSuccess=(res: any) => {
-    setUserObj({...userObj,
-      email: res.profileObj.email,
-      name: res.profileObj.name
-    })
-  }
-
-  const onLogout = () => {
-    setUserObj({...userObj,
-      email:'',
-      name:''
-    }) 
-  }
-
-
 
   const onClickMint = async (uri: string) => {
     if(myAddress === DEFAULT_ADDRESS) {
@@ -149,23 +126,16 @@ function App() {
   }, [])
 
   return (
-    <div className="App">
-      {/* <div>
-        <GoogleLogin
-          clientId = {googleClientId}
-          buttonText="Login"
-          onSuccess={result=>onLoginSuccess(result)}
-          onFailure={result => console.log(result)}
-        />
-        <div>{userObj.email}</div>
-        <div>{userObj.name}</div>
+    <div className="App">      
+      <Header />
 
-        <GoogleLogout
-          clientId = {googleClientId}
-          buttonText="logout!!"
-          onLogoutSuccess={onLogout}
-        />
-      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/market" element={<Market />} />
+        <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/create" element={<Create />} />
+        <Route path="/mynft/:address" element={<MyNft />} />
+      </Routes>
 
       <button onClick={fetchMyNFTs}>내 NFT 가져오기</button>
       <button onClick={fetchMarketNFTs}>마켓 NFT 가져오기</button>
@@ -210,17 +180,7 @@ function App() {
             }}>진행</button>
           </div>
         </div>
-      ) : null} */}
-      
-      <Header />
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/market" element={<Market />} />
-        <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/create" element={<Create />} />
-        <Route path="/mynft/:address" element={<MyNft />} />
-      </Routes>
+      ) : null}
 
       <Footer />
     </div>

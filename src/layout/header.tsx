@@ -9,9 +9,10 @@ const Header = () => {
                 <Logo />
             </div>
 
-            <Nav />
-
-            <Sign />
+            <div className="header-right">
+                <Nav />
+                <Sign />
+            </div>
         </header>
     );
 };

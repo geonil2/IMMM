@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { counter } from './sign';
+import { counter } from './count';
 
 const rootReducer = combineReducers({
     counter

@@ -1,48 +1,12 @@
-// Import
+// 액션 타입 선언
+const SIGNIN = 'sign/SIGNIN' as const;
 
-
-// Actions
-const INCREASE = 'counter/INCREASE' as const;
-const DECREASE = 'counter/DECREASE' as const;
-const INCREASE_BY = 'counter/INCREASE_BY' as const;
-
-export const increase = () => ({
-    type: INCREASE
+// 액션 생성함수 선언
+export const signIn = () => ({
+    type: SIGNIN
 });
 
-export const decrease = () => ({
-    type: DECREASE
-});
-
-export const increaseBy = (diff: number) => ({
-    type: INCREASE_BY,
-    payload: diff
-});
-
-type CounterAction = 
-    | ReturnType<typeof increase> 
-    | ReturnType<typeof decrease>
-    | ReturnType<typeof increaseBy>;
-
-type CounterState = {
-    count: number;
-};
-const initialState: CounterState = {
-    count: 0
-};
-
-export function counter(
-    state: CounterState = initialState,
-    action: CounterAction
-) : CounterState {
-    switch (action.type) {
-        case INCREASE:
-            return { count: state.count + 1 };
-        case DECREASE:
-            return { count: state.count - 1 };
-        case INCREASE_BY:
-            return { count: state.count + action.payload };
-        default:
-            return state;
-    }
-}
+// 모든 액션 겍체들에 대한 타입을 준비해줍니다.
+// ReturnType<typeof _____> 는 특정 함수의 반환값을 추론해줍니다
+// 상단부에서 액션타입을 선언 할 떄 as const 를 하지 않으면 이 부분이 제대로 작동하지 않습니다.
+type signAction = ReturnType<typeof signIn>;

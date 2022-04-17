@@ -6,7 +6,7 @@ const Nav = () => {
         <ul className="navigation">
             <li><Link to="market">Market</Link></li>
             <li><Link to="create">Create</Link></li>
-            <li><Link to="mynft/:address">My nft</Link></li>
+            <li><Link to="mynft/:address">My NFT</Link></li>
         </ul>
     );
 };

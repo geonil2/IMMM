@@ -10,6 +10,7 @@
 
 #API Keys
 .env
+.envrc
 
 # production
 /build
