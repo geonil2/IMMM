@@ -1,6 +1,19 @@
 // Color
+$white: #FFFFFF;
+$black: #282828;
+$gray5c: #5C5C5C;
+$gray79: #797979;
+$gray93: #939393;
+$grayBC: #BCBCBC;
+
+$gradation: linear-gradient(99.83deg, #78FCF2 5.57%, #1A54FE 38.37%, #7929F5 80.34%, #9B29F5 98.19%);
 
 // Mixin
 @mixin flex {
     display: flex; justify-content: center; align-items: center;
+}
+
+// class
+.hide{
+    display: none;
 }

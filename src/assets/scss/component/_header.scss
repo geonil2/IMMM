@@ -1,6 +1,8 @@
-header{ 
-    @include flex;
+header{
+    position: fixed;
+    width: 100%;
     height: 100px;
+    @include flex;
     justify-content: space-between; 
     border-bottom: 1px solid #ddd;
     padding: 0px 30px;

@@ -3,7 +3,10 @@
         width: 153px; 
         height: 53px;  
         @include flex;
-        background: red;
+        color: $white;
+        font-size: 1.125rem;
+        background: $gradation;
         margin-left: 30px;
+        cursor: pointer;
     }
 }

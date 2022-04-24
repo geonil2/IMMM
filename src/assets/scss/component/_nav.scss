@@ -2,4 +2,7 @@
     width: 424px; 
     @include flex; 
     justify-content: space-between;
+    font-weight: 1.125rem;
+    color: $black;
+    margin-right: 95px;
 }

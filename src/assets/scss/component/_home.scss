@@ -1,0 +1,47 @@
+.home{
+    .home-section{
+        width: 100vw;
+        height: 100vh;
+        @include flex;
+        justify-content: space-between;
+        
+        .home-aside{
+            .home-aside-title{
+                margin: 0px 0px 90px 48px;
+                li{
+                    font-size: 2.625rem;
+                    line-height: 121%;
+                    &:nth-child(1){
+                        color: $black;
+                    }
+                    &:nth-child(2){
+                        color: $gray5c;
+                    }
+                    &:nth-child(3){
+                        color: $gray79;
+                    }
+                    &:nth-child(4){
+                        color: $gray93;
+                    }
+                    &:nth-child(5){
+                        color: $grayBC;
+                    }
+                }
+            }
+
+            .sub-slide{
+                width: 192px;
+                height: 138px;
+                overflow: hidden;
+                img{
+                    width: 100%;
+                    filter: grayscale(100%);
+                }
+            }
+        }
+
+        .home-main-slider{
+            width: 70vw;
+        }
+    }
+}
