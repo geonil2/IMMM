@@ -16,6 +16,9 @@ import Detail from './layout/detail';
 import Create from './layout/create';
 import MyNft from './layout/mynft';
 import Footer from './layout/footer';
+import LoginPopup from "./components/header/loginPopup";
+import {useRecoilValue} from "recoil";
+import {showPopupAtom} from "./recoil/popup";
 
 const DEFAULT_QR_CODE = 'DEFAULT'
 const DEFAULT_ADDRESS = "0x0000000000000000000000000000000000000000000000000000000000000000"
@@ -32,6 +35,8 @@ function App() {
     title: "MODAL",
     onConfirm: () => {}
   });
+  const showPopup = useRecoilValue(showPopupAtom);
+
   // market contract 재발행 seller 있는걸로
   // readCount();
   // getBalance('0x7601fbeda5d5e30146e73a3508c15590b782eadc');
@@ -137,52 +142,54 @@ function App() {
         <Route path="/mynft/:address" element={<MyNft />} />
       </Routes>
 
-      <button onClick={fetchMyNFTs}>내 NFT 가져오기</button>
-      <button onClick={fetchMarketNFTs}>마켓 NFT 가져오기</button>
+      {/*<button onClick={fetchMyNFTs}>내 NFT 가져오기</button>*/}
+      {/*<button onClick={fetchMarketNFTs}>마켓 NFT 가져오기</button>*/}
       
-      <form>
-        <input 
-          type="text"
-          placeholder='이미지 주소를 입력해주세요.'
-          value={mintImgUrl}
-          onChange={(e) => {
-            setMintImgUrl(e.target.value);
-          }}
-        />
-        <button onClick={() => onClickMint(mintImgUrl)}>발행하기</button>
-      </form>
-  
-      <div>
-        {nfts.map((nft) => (
-          <img src={nft.uri} key={nft.id} onClick={() => {onClickCard(nft.id)}} />
-        ))}
-      </div>
-      
-      {qrvalue !== 'DEFAULT' ? (
-        <QRCode value={qrvalue} size={256} />
-      ) : null}
+      {/*<form>*/}
+      {/*  <input */}
+      {/*    type="text"*/}
+      {/*    placeholder='이미지 주소를 입력해주세요.'*/}
+      {/*    value={mintImgUrl}*/}
+      {/*    onChange={(e) => {*/}
+      {/*      setMintImgUrl(e.target.value);*/}
+      {/*    }}*/}
+      {/*  />*/}
+      {/*  <button onClick={() => onClickMint(mintImgUrl)}>발행하기</button>*/}
+      {/*</form>*/}
 
-      <div onClick={getUserData}>
-        잔고 : {myBalance}
-        주소 : {myAddress}
-      </div>
+      {/*<div>*/}
+      {/*  {nfts.map((nft) => (*/}
+      {/*    <img src={nft.uri} key={nft.id} onClick={() => {onClickCard(nft.id)}} />*/}
+      {/*  ))}*/}
+      {/*</div>*/}
       
-      {showModal ? (
-        <div className="modal">
-          <div className="modal_header">
-            <div className="modal_tit">{modalProps.title}</div>
-          </div>
-          <div className="modal_footer">
-            <button className="modal_close" onClick={() => setShowModal(false)}>닫기</button>
-            <button onClick={() => {
-              modalProps.onConfirm();
-              setShowModal(false)
-            }}>진행</button>
-          </div>
-        </div>
-      ) : null}
+      {/*{qrvalue !== 'DEFAULT' ? (*/}
+      {/*  <QRCode value={qrvalue} size={256} />*/}
+      {/*) : null}*/}
+
+      {/*<div onClick={getUserData}>*/}
+      {/*  잔고 : {myBalance}*/}
+      {/*  주소 : {myAddress}*/}
+      {/*</div>*/}
+      
+      {/*{showModal ? (*/}
+      {/*  <div className="modal">*/}
+      {/*    <div className="modal_header">*/}
+      {/*      <div className="modal_tit">{modalProps.title}</div>*/}
+      {/*    </div>*/}
+      {/*    <div className="modal_footer">*/}
+      {/*      <button className="modal_close" onClick={() => setShowModal(false)}>닫기</button>*/}
+      {/*      <button onClick={() => {*/}
+      {/*        modalProps.onConfirm();*/}
+      {/*        setShowModal(false)*/}
+      {/*      }}>진행</button>*/}
+      {/*    </div>*/}
+      {/*  </div>*/}
+      {/*) : null}*/}
 
       <Footer />
+
+      {showPopup ? <LoginPopup  /> : null}
     </div>
   );
 }

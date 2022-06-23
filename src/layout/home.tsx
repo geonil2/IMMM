@@ -98,8 +98,8 @@ const Home = () => {
                 </aside>
 
                 <div className="home-main-slider">
-                    <Slider 
-                        ref={mainSlideRef} 
+                    <Slider
+                        ref={mainSlideRef}
                         // @ts-ignore
                         asNavFor={subSlide}
                         {...mainSliderset}
@@ -114,7 +114,7 @@ const Home = () => {
                                         <div className="slider-nft-Creator"><img src={list.creator} alt="Basic profile image" /> Creator</div>
                                     </div>
                                 </div>
-                            )    
+                            )
                         })}
                     </Slider>
                 </div>

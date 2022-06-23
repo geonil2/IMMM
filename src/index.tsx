@@ -6,14 +6,17 @@ import { BrowserRouter } from 'react-router-dom';
 import { createStore } from 'redux';
 import rootReducer from './redux/modules';
 import { Provider } from 'react-redux';
+import {RecoilRoot} from "recoil";
 
 const store = createStore(rootReducer);
 
 ReactDOM.render(
   <BrowserRouter>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <RecoilRoot>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </RecoilRoot>
   </BrowserRouter>,
   document.getElementById('root')
 );
